@@ -2,11 +2,22 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <getopt.h>
+
+#define no_argument 0
+#define required_argument 1
 
 using namespace std;
 
+
 int main(int argc, char **argv, char **envp) {
   
+const struct option long_options[] = {
+  {"version", no_argument, 0, 0},
+  {"help",    no_argument, 0, 0},
+  {"null",    no_argument, 0, 0},
+  {0, 0, 0, 0}
+};
   char **env;
 
   if (argc > 1) {
