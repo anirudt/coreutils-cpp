@@ -13,12 +13,16 @@ using namespace std;
 int main(int argc, char **argv, char **envp) {
   
 const struct option long_options[] = {
-  {"version", no_argument, 0, 0},
-  {"help",    no_argument, 0, 0},
-  {"null",    no_argument, 0, 0},
+  {"version", no_argument, 0, 'v'},
+  {"help",    no_argument, 0, 'h'},
+  {"null",    no_argument, 0, '0'},
   {0, 0, 0, 0}
 };
   char **env;
+  int option_index = 0;
+
+  int c = getopt_long(argc, argv, "vhn", long_options, &option_index);
+  cout << c << endl;
 
   if (argc > 1) {
     for (int i = 1; i < argc ; i++) {
