@@ -17,10 +17,12 @@ void process_selective_env(int optind, int argc,
     for (env = envp; *env != 0; env++) {
       string env_entry = *env;
       if (env_entry.find(s) != -1) {
+        size_t j = env_entry.find("=");
+        string value = env_entry.substr(j+1);
         if(zero_set)
-          cout << env_entry;
+          cout << value;
         else
-          cout << env_entry << endl;
+          cout << value << endl;
         break;
       }
     }
