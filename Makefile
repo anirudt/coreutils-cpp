@@ -3,8 +3,8 @@
 CC=g++
 
 SOURCE_DIR=utils
-
 BUILD_DIR=bin
+TMP_FILE=utils/a.out
 
 all: printenv echo
 
@@ -16,3 +16,4 @@ echo:
 
 clean:
 	rm -rf $(BUILD_DIR)/*
+	rm -rf $(TMP_FILE)
