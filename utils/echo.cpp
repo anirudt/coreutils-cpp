@@ -3,19 +3,30 @@
 #include <iostream>
 #include <string>
 #include <getopt.h>
+#include <cstdio>
 
 #define no_argument 0
 #define required_argument 1
 
 using namespace std;
 
-/* TODO 
- *
- * Make a function to 
- * strip double and single
- * quotes.
- *
- */
+void enable_escape(int argc, char **argv, int optind) {
+  for (int i=optind; i<argc; i++) {
+    string s1 = argv[i];
+    string s(argv[i]);
+    for (int j=0; j<s.length(); j++) {
+      cout << s[j] << endl;
+    }
+  }
+}
+
+void disable_escape(int argc, char **argv, int optind) {
+  cout << "Disabled" << endl;
+  for (int i=optind; i<argc; i++) {
+    
+  }
+}
+
 
 int main(int argc, char **argv) {
  
@@ -30,7 +41,7 @@ int main(int argc, char **argv) {
 
   int option_index = 0;
 
-  int c = getopt_long(argc, argv, "vhe:E:n:", long_options, &option_index);
+  int c = getopt_long(argc, argv, "vheEn", long_options, &option_index);
   cout << option_index << endl;
 
   /* Preventing error messages */
@@ -43,15 +54,22 @@ int main(int argc, char **argv) {
     case 'h': cout << "Refer the man page for more details" << endl;
               break;
 
-    case 'e': break;
+    case 'e': /* Enabling escape sequences */
+              enable_escape(argc, argv, optind);
+              break;
 
-    case 'E': break;
+    case 'E': /* Disabling escape sequences */
+              disable_escape(argc, argv, optind);
+              break;
 
-    case 'n': break;
+    case 'n': /* Giving output without new line */
+              break;
 
-    case '?': break;
+    case '?': /* An unknown option is entered */
+              break;
 
-    case -1: break;
+    case -1: /* Only arguments present, no options */
+             break;
   }
   
   return 0;
