@@ -1,10 +1,10 @@
-#include <stdlib.h>
 #include <cstdio>
 #include <iostream>
 #include <string>
 #include <getopt.h>
-#include <cstdio>
+#include <cstdlib>
 #include <fstream>
+#include <sstream>
 
 #define no_argument 0
 #define required_argument 1
@@ -36,14 +36,21 @@ int stat_count(bool byte_counter, bool char_counter,
     bool word_counter, bool read_master_file, char **argv, int optind, int argc) {
   /* For each file, DO */
   for (int i = optind; i < argc; i++) {
-    int byte_cnt, char_cnt, line_cnt, max_line, word_cnt, master_file;
+    int byte_cnt = 0, char_cnt = 0, line_cnt = 0, max_line = 0, word_cnt = 0, master_file = 0;
+    string str;
     if (byte_counter) {
     }
     if (char_counter) {
       char_cnt = char_count(argv[i]);
+      stringstream convert; convert << char_cnt;
+      str += convert.str();
+      str += " ";
     }
     if (line_counter) {
       line_cnt = line_count(argv[i]);
+      stringstream convert; convert << line_cnt;
+      str += convert.str();
+      str += " ";
     }
     if (get_max_line) {
     }
@@ -51,7 +58,9 @@ int stat_count(bool byte_counter, bool char_counter,
     }
     if (read_master_file) {
     }
-    cout << char_cnt << " " << line_cnt << " " << argv[i] << endl;
+    if (byte_counter | char_counter | get_max_line | word_counter | read_master_file) {
+      cout << str << argv[i] << endl;
+    }
   }
 }
 
@@ -87,12 +96,20 @@ int main(int argc, char **argv) {
                 break;
       case 'w': word_counter = true;
                 break;
+      case 'v': cout << "wc: The version is 1.0.1" << endl;
+                break;
+      case 'h': cout << "Please see the man page for help" << endl;
+                break;
       case '?': break;
       case -1: break;
     }
   }
-  stat_count(byte_counter, char_count, line_counter, get_max_line, word_counter, read_master_file, argv, optind, argc);
-
+  if ( !byte_counter && !char_counter && !line_counter && !get_max_line && !word_counter ) {
+    stat_count(true, true, true, true, true, true, argv, optind, argc);
+  }
+  else {
+    stat_count(byte_counter, char_counter, line_counter, get_max_line, word_counter, read_master_file, argv, optind, argc);
+  }
 
   return 0;
 } 
