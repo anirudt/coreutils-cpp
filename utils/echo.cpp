@@ -64,39 +64,45 @@ int main(int argc, char **argv) {
     {0,         required_argument, 0, 'n'},
     {0,         0,           0, 0}
   };
+  bool new_line = true; /* Default setting */
 
   int option_index = 0;
 
-  int c = getopt_long(argc, argv, "vheEn", long_options, &option_index);
-  cout << option_index << endl;
+  int c;
 
-  /* Preventing error messages */
-  opterr = 0;
+  while((c = getopt_long(argc, argv, "vheEn", long_options, &option_index))!=-1) {
+    cout << option_index << endl;
 
-  switch(c) {
-    case 'v': cout << "echo: The version is 1.0.1" << endl;
-              break;
+    /* Preventing error messages */
+    opterr = 0;
 
-    case 'h': cout << "Refer the man page for more details" << endl;
-              break;
+    switch(c) {
+      case 'v': cout << "echo: The version is 1.0.1" << endl;
+                break;
 
-    case 'E': /* Disabling escape sequences */
-              disable_escape(argc, argv, optind);
-              break;
+      case 'h': cout << "Refer the man page for more details" << endl;
+                break;
 
-    case 'n': /* Giving output without new line */
-              enable_escape(argc, argv, optind);
-              break;
+      case 'E': /* Disabling escape sequences */
+                disable_escape(argc, argv, optind);
+                break;
 
-    case '?': /* An unknown option is entered */
-              break;
+      case 'n': /* Giving output without new line */
+                new_line = false;
+                break;
 
-    case 'e': /* Enabling escape sequences */
-    case -1: /* Only arguments present, no options */
-              enable_escape(argc, argv, optind);
-              cout << endl;
-              break;
+      case '?': /* An unknown option is entered */
+                break;
+
+      case 'e': /* Enabling escape sequences */
+      case -1: /* Only arguments present, no options */
+                enable_escape(argc, argv, optind);
+                break;
+    }
   }
-  
+  if (new_line) {
+    cout << endl;
+  }
+
   return 0;
 }
