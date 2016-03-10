@@ -49,42 +49,49 @@ int main(int argc, char **argv, char **envp) {
     {"null",    no_argument, 0, '0'},
     {0, 0, 0, 0}
   };
+  bool byte_zero = false;
   char **env;
   int option_index = 0;
+  int c;
 
-  int c = getopt_long(argc, argv, "vh0", long_options, &option_index);
+  while((c = getopt_long(argc, argv, "vh0", long_options, &option_index))!=-1) {
 
-  /* Preventing error messages */
-  opterr = 0;
+    /* Preventing error messages */
+    opterr = 0;
 
-  switch(c) {
-    case 'v': cout << "printenv: The version is 1.0.1" << endl;
-              break;
+    switch(c) {
+      case 'v': cout << "printenv: The version is 1.0.1" << endl;
+                break;
 
-    case 'h': cout << "Use 'man printenv' to know how to use this tool" << endl;
-              break;
+      case 'h': cout << "Use 'man printenv' to know how to use this tool" << endl;
+                break;
 
-    case '0': if (optind < argc) {
-                process_selective_env(optind, argc, envp, argv, 1);
-              }
-              else if (argc == 2) {
-                process_all_env(envp, 1);
-              }
-              break;
+      case '0': byte_zero = true;
+                break;
 
-    case '?': 
-              break;
-    case -1:
-              if (optind < argc) {
-                /* Processing any left non-option arguments */
-                process_selective_env(optind, argc, envp, argv, 0);
-              }
-              else if(argc == 1) {
-                /* Handling in case of no argument being passed */
-                process_all_env(envp, 0);
-              }
-              break;
+      case '?':
+                break;
+      case -1: break;
+    }
   }
+  if (byte_zero) {
+    if (optind < argc) {
+      process_selective_env(optind, argc, envp, argv, 1);
+    }
+    else if (argc == 2) {
+      process_all_env(envp, 1);
+    }
+  }
+  else {
+    if (optind < argc) {
+      /* Processing any left non-option arguments */
+      process_selective_env(optind, argc, envp, argv, 0);
+    }
+    else if(argc == 1) {
+      /* Handling in case of no argument being passed */
+      process_all_env(envp, 0);
+    }
 
+  }
   return 0;
 }
