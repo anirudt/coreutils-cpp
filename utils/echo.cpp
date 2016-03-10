@@ -12,18 +12,44 @@ using namespace std;
 
 void enable_escape(int argc, char **argv, int optind) {
   for (int i=optind; i<argc; i++) {
-    string s1 = argv[i];
-    string s(argv[i]);
-    for (int j=0; j<s.length(); j++) {
-      cout << s[j] << endl;
+    char *s = argv[i];
+
+    // Starting from first element
+    while(*s) {
+      char curr;
+      if (*s != '\\') {
+        cout << *s;
+        s++;
+        continue;
+      }
+      switch(*(s+1)) {
+        case '\\': curr = '\\';
+                  break;
+        case 'a': curr = '\a';
+                  break;
+        case 'b': curr = '\b';
+                  break;
+        case 'n': curr = '\n';
+                  break;
+        case 'r': curr = '\r';
+                  break;
+        case 't': curr = '\t';
+                  break;
+        case 'v': curr = '\v';
+                  break;
+        default:  s++;
+                  continue;
+      }
+      cout << curr;
+      s+=2;
     }
   }
 }
 
 void disable_escape(int argc, char **argv, int optind) {
-  cout << "Disabled" << endl;
   for (int i=optind; i<argc; i++) {
-    
+    char *s = argv[i];
+    cout << s;
   }
 }
 
