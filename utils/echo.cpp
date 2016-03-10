@@ -80,22 +80,22 @@ int main(int argc, char **argv) {
     case 'h': cout << "Refer the man page for more details" << endl;
               break;
 
-    case 'e': /* Enabling escape sequences */
-              enable_escape(argc, argv, optind);
-              break;
-
     case 'E': /* Disabling escape sequences */
               disable_escape(argc, argv, optind);
               break;
 
     case 'n': /* Giving output without new line */
+              enable_escape(argc, argv, optind);
               break;
 
     case '?': /* An unknown option is entered */
               break;
 
+    case 'e': /* Enabling escape sequences */
     case -1: /* Only arguments present, no options */
-             break;
+              enable_escape(argc, argv, optind);
+              cout << endl;
+              break;
   }
   
   return 0;
