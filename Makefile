@@ -5,7 +5,7 @@ CC=g++
 SOURCE_DIR=utils
 BUILD_DIR=bin
 TMP_FILE=utils/a.out
-SWP_FILES=utils/*.swp
+SWP_FILES=utils/.*.swp
 
 all: printenv echo
 
