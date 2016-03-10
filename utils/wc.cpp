@@ -4,6 +4,7 @@
 #include <string>
 #include <getopt.h>
 #include <cstdio>
+#include <fstream>
 
 #define no_argument 0
 #define required_argument 1
@@ -18,27 +19,34 @@ int main(int argc, char **argv) {
   {"files0-from", required_argument, 0, 'f'},
   {"max-line-length", required_argument, 0, 'x'},
   {"words", required_argument, 0, 'w'},
-  {"version"}
+  {"version", no_argument, 0, 'v'},
+  {"help", no_argument, 0, 'h'}
   }; 
 
-  int optind = 0;
+  int option_index = 0;
 
-  while((c = getopt_long())!=-1) {
-    case 'c': break;
-
-    case 'm': break;
-
-    case 'l': break;
-
-    case 'f': break;
-
-    case 'x': break;
-
-    case 'w': break;
-
-    case '?': break;
-
-    case -1: break;
+  int c;
+  while((c = getopt_long(argc, argv, "cmlfxwvh", long_options, &option_index))!=-1) {
+    switch(c) {
+      case 'c': for (int i=optind; i<argc; i++) {
+                  int char_count = 0;
+                  ifstream fin(argv[i], ios::in); char tmp;
+                  fin.get( tmp );
+                  while(!fin.eof()) {
+                    fin.get( tmp );
+                    char_count++;
+                  }
+                  cout << char_count << " " << argv[i] << endl;
+                }
+                break;
+      case 'm': break;
+      case 'l': break;
+      case 'f': break;
+      case 'x': break;
+      case 'w': break;
+      case '?': break;
+      case -1: break;
+    }
   }
 
   return 0;

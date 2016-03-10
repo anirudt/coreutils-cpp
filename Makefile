@@ -7,13 +7,16 @@ BUILD_DIR=bin
 TMP_FILE=utils/a.out
 SWP_FILES=utils/.*.swp
 
-all: printenv echo
+all: printenv echo wc
 
 printenv:
 	$(CC) $(SOURCE_DIR)/printenv.cpp -o $(BUILD_DIR)/printenv
 
 echo: 
 	$(CC) $(SOURCE_DIR)/echo.cpp -o $(BUILD_DIR)/echo
+
+wc: 
+	$(CC) $(SOURCE_DIR)/wc.cpp -o $(BUILD_DIR)/wc
 
 clean:
 	rm -rf $(BUILD_DIR)/*
