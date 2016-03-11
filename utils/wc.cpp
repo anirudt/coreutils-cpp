@@ -20,6 +20,17 @@ int line_count(char *s) {
   return line_count;
 }
 
+int max_line_length(char *s) {
+  int max_line_length = 0;
+  ifstream fin(s, ios::in); string line;
+  while(getline(fin, line)) {
+    if (line.length() > max_line_length) {
+      max_line_length = line.length();
+    }
+  }
+  return max_line_length;
+}
+
 int char_count(char *s) {
   int char_count = 0;
   ifstream fin(s, ios::in); char tmp;
@@ -29,6 +40,19 @@ int char_count(char *s) {
     char_count++;
   }
   return char_count;
+}
+
+int word_count(char *s) {
+  int word_count = 1;
+  ifstream fin(s, ios::in); char tmp;
+  fin.get( tmp );
+  while(!fin.eof()) {
+    if (tmp == ' ') {
+      word_count++;
+    }
+    fin.get( tmp );
+  }
+  return word_count;
 }
 
 int stat_count(bool byte_counter, bool char_counter,
@@ -53,8 +77,16 @@ int stat_count(bool byte_counter, bool char_counter,
       str += " ";
     }
     if (get_max_line) {
+      max_line = max_line_length(argv[i]);
+      stringstream convert; convert << max_line;
+      str += convert.str();
+      str += " ";
     }
     if (word_counter) {
+      word_cnt = word_count(argv[i]);
+      stringstream convert; convert << word_cnt;
+      str += convert.str();
+      str += " ";
     }
     if (read_master_file) {
     }
