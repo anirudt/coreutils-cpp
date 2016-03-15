@@ -11,6 +11,11 @@
 
 using namespace std;
 
+string toString(int i) {
+  stringstrean convert; convert << i;
+  return convert.str();
+}
+
 int line_count(char *s) {
   int line_count = 0;
   ifstream fin(s, ios::in); string line;
@@ -59,34 +64,41 @@ int stat_count(bool byte_counter, bool char_counter,
     bool line_counter, bool get_max_line,
     bool word_counter, bool read_master_file, char **argv, int optind, int argc) {
   /* For each file, DO */
+  int tot_byte_cnt = 0, tot_char_cnt = 0,
+      tot_line_cnt = 0, glob_max_line = 0,
+      tot_word_cnt = 0;
+  string glob_str;
   for (int i = optind; i < argc; i++) {
     int byte_cnt = 0, char_cnt = 0, line_cnt = 0, max_line = 0, word_cnt = 0, master_file = 0;
     string str;
+    if (line_counter) {
+      line_cnt = line_count(argv[i]);
+      str += toString(line_cnt);
+      str += " ";
+      tot_line_cnt += line_cnt;
+    }
+    if (word_counter) {
+      word_cnt = word_count(argv[i]);
+      str += toString(word_cnt);
+      str += " ";
+      tot_word_cnt += word_cnt;
+    }
     if (byte_counter) {
     }
     if (char_counter) {
       char_cnt = char_count(argv[i]);
-      stringstream convert; convert << char_cnt;
-      str += convert.str();
+      str += toString(char_cnt);
       str += " ";
-    }
-    if (line_counter) {
-      line_cnt = line_count(argv[i]);
-      stringstream convert; convert << line_cnt;
-      str += convert.str();
-      str += " ";
+      tot_char_cnt += char_cnt;
     }
     if (get_max_line) {
       max_line = max_line_length(argv[i]);
-      stringstream convert; convert << max_line;
-      str += convert.str();
+      str += toString(max_line);
       str += " ";
-    }
-    if (word_counter) {
-      word_cnt = word_count(argv[i]);
-      stringstream convert; convert << word_cnt;
-      str += convert.str();
-      str += " ";
+
+      if (max_line > glob_max_line) {
+        glob_max_line = max_line;
+      }
     }
     if (read_master_file) {
     }
@@ -94,6 +106,9 @@ int stat_count(bool byte_counter, bool char_counter,
       cout << str << argv[i] << endl;
     }
   }
+  /* Do global printing over here*/
+  /* Check for argc > 2, and also for max line len */
+
 }
 
 int main(int argc, char **argv) {
@@ -126,7 +141,8 @@ int main(int argc, char **argv) {
                 break;
       case 'L': get_max_line = true;
                 break;
-      case 'w': word_counter = true;
+      case 'w': //word_counter = true;
+                cout << "wc: word count not implemented yet" << endl;
                 break;
       case 'v': cout << "wc: The version is 1.0.1" << endl;
                 break;
