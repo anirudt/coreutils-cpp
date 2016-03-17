@@ -12,7 +12,7 @@
 using namespace std;
 
 string toString(int i) {
-  stringstrean convert; convert << i;
+  stringstream convert; convert << i;
   return convert.str();
 }
 
@@ -102,13 +102,21 @@ int stat_count(bool byte_counter, bool char_counter,
     }
     if (read_master_file) {
     }
-    if (byte_counter | char_counter | get_max_line | word_counter | read_master_file) {
+    if (line_counter | byte_counter | char_counter | get_max_line | word_counter | read_master_file) {
       cout << str << argv[i] << endl;
     }
   }
   /* Do global printing over here*/
   /* Check for argc > 2, and also for max line len */
-
+  if (argc - optind > 1) {
+    if (line_counter) 
+      glob_str += toString(tot_line_cnt); glob_str += " ";
+    if (word_counter)
+      glob_str += toString(tot_word_cnt); glob_str += " ";
+    if (char_counter) 
+      glob_str += toString(tot_char_cnt); glob_str += " ";
+    cout << glob_str << "total" << endl;
+  }
 }
 
 int main(int argc, char **argv) {
@@ -153,7 +161,7 @@ int main(int argc, char **argv) {
     }
   }
   if ( !byte_counter && !char_counter && !line_counter && !get_max_line && !word_counter ) {
-    stat_count(true, true, true, true, true, true, argv, optind, argc);
+    stat_count(true, true, true, false, true, true, argv, optind, argc);
   }
   else {
     stat_count(byte_counter, char_counter, line_counter, get_max_line, word_counter, read_master_file, argv, optind, argc);
