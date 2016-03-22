@@ -81,6 +81,7 @@ int main(int argc, char **argv) {
                 break;
 
       case 'h': cout << "Refer the man page for more details" << endl;
+                cout << "All flags of original tool are supported, except escaping hex sequences" << endl;
                 break;
 
       case 'E': /* Disabling escape sequences */

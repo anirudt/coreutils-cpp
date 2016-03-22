@@ -64,6 +64,7 @@ int main(int argc, char **argv, char **envp) {
                 break;
 
       case 'h': cout << "Use 'man printenv' to know how to use this tool" << endl;
+                cout << "All flags of the original tool are supported" << endl;
                 break;
 
       case '0': byte_zero = true;

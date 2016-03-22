@@ -155,6 +155,7 @@ int main(int argc, char **argv) {
       case 'v': cout << "wc: The version is 1.0.1" << endl;
                 break;
       case 'h': cout << "Please see the man page for help" << endl;
+                cout << "Flags supported: -m, -l, -L, -w, -v" << endl;
                 break;
       case '?': break;
       case -1: break;
