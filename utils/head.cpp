@@ -15,12 +15,18 @@ void print_lines(char *s, int n) {
   ifstream fin(s, ios::in); string line;
   int line_count = 0;
   while(getline(fin, line) && line_count < n) {
-    cout << line;
+    cout << line << endl;
+    line_count++;
   }
 }
 
-void process(bool line_print, int line_print_arg) {
-
+void process(int argc, char **argv, int optind, bool line_print, int line_print_arg) {
+  for (int i = optind; i < argc; i++) {
+    cout << "==> " << argv[i] << " <==" << endl;
+    if (line_print) {
+      print_lines(argv[i], line_print_arg);
+    }
+  }
 }
 
 int main(int argc, char **argv) {
@@ -46,10 +52,10 @@ int main(int argc, char **argv) {
     }
   }
   if (!line_print) {
-    process(line_print, 10);
+    process(argc, argv, optind, line_print, 10);
   }
   else {
-    process(line_print, line_print_arg);
+    process(argc, argv, optind, line_print, line_print_arg);
   }
   return 0;
 }
