@@ -1,6 +1,6 @@
 
 # Compiler user
-CC=g++
+CC=g++ -Wall --std=c++11
 
 SOURCE_DIR=utils
 BUILD_DIR=bin
