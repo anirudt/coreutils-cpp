@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
                 char_count = stoi(optarg);
     }
   }
-  if (!line_print) {
+  if (!line_print && !char_print) {
     process(argc, argv, optind, line_print, 10, false, 0);
   }
   else {
