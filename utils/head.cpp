@@ -21,12 +21,11 @@ void print_lines(char *s, int n) {
 }
 
 void print_chars(char *s, int n) {
-  ifstream fin(s, os::in); char tmp;
+  ifstream fin(s, ios::in); char tmp;
   int char_count = 0;
-  fin.get(tmp);
   while(!fin.eof() && char_count < n) {
-    fin.get( tmp );
-    cout << tmp;
+    fin.get(tmp);
+    cout << tmp; char_count++;
   }
 }
 
@@ -65,14 +64,15 @@ int main(int argc, char **argv) {
                 line_print_arg = stoi(optarg);
                 break;
       case 'c': char_print = true;
-                char_count = stoi(optarg);
+                char_print_arg = stoi(optarg);
+                break;
     }
   }
   if (!line_print && !char_print) {
     process(argc, argv, optind, line_print, 10, false, 0);
   }
   else {
-    process(argc, argv, optind, line_print, line_print_arg,\
+    process(argc, argv, optind, line_print, line_print_arg,
             char_print, char_print_arg);
   }
   return 0;
