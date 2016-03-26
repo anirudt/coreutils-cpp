@@ -30,16 +30,19 @@ void print_chars(char *s, int n) {
 }
 
 void process(int argc, char **argv, int optind, bool line_print, int line_print_arg,
-             bool char_print, int char_print_arg) {
+             bool char_print, int char_print_arg, bool quiet_print) {
   for (int i = optind; i < argc; i++) {
-    cout << "==> " << argv[i] << " <==" << endl;
+    if (!quiet_print) 
+      cout << "==> " << argv[i] << " <==" << endl;
+    else {}
     if (line_print) {
       print_lines(argv[i], line_print_arg);
     }
     if (char_print) {
       print_chars(argv[i], char_print_arg);
     }
-    cout << endl;
+    if (!quiet_print)
+      cout << endl;
   }
 }
 
@@ -56,7 +59,8 @@ int main(int argc, char **argv) {
   int c;
 
   // Indicators
-  bool line_print = false, char_print = false;
+  bool line_print = false, char_print = false, quiet_print = false,
+       verbose_print = true;
   int line_print_arg = 0, char_print_arg = 0;
   while((c = getopt_long(argc, argv, "c:n:qvhk", long_options, &option_index)) != -1) {
     switch(c) {
@@ -66,14 +70,17 @@ int main(int argc, char **argv) {
       case 'c': char_print = true;
                 char_print_arg = stoi(optarg);
                 break;
+      case 'q': quiet_print = true;
+                break;
+      case 'v': break;
     }
   }
   if (!line_print && !char_print) {
-    process(argc, argv, optind, line_print, 10, false, 0);
+    process(argc, argv, optind, line_print, 10, false, 0, quiet_print);
   }
   else {
     process(argc, argv, optind, line_print, line_print_arg,
-            char_print, char_print_arg);
+            char_print, char_print_arg, quiet_print);
   }
   return 0;
 }
