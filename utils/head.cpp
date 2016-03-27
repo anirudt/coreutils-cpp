@@ -73,6 +73,8 @@ int main(int argc, char **argv) {
       case 'q': quiet_print = true;
                 break;
       case 'v': break;
+      case '?': break;
+      case -1:  break;
     }
   }
   if (!line_print && !char_print) {
