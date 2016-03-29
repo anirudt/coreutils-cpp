@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include "utilities.h"
 
 #define no_argument 0
 #define required_argument 1

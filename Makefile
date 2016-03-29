@@ -19,7 +19,7 @@ wc:
 	$(CC) $(SOURCE_DIR)/wc.cpp -o $(BUILD_DIR)/wc
 
 head:
-	$(CC) $(SOURCE_DIR)/head.cpp -o $(BUILD_DIR)/head
+	$(CC) $(SOURCE_DIR)/head.cpp $(SOURCE_DIR)/utilities.cpp -o $(BUILD_DIR)/head
 
 clean:
 	rm -rf $(BUILD_DIR)/*
