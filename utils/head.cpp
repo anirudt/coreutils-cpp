@@ -12,26 +12,26 @@
 
 using namespace std;
 
-void print_lines(char *s, int n) {
+void print_lines(char *s, lli n) {
   ifstream fin(s, ios::in); string line;
-  int line_count = 0;
+  lli line_count = 0;
   while(getline(fin, line) && line_count < n) {
     cout << line << endl;
     line_count++;
   }
 }
 
-void print_chars(char *s, int n) {
+void print_chars(char *s, lli n) {
   ifstream fin(s, ios::in); char tmp;
-  int char_count = 0;
+  lli char_count = 0;
   while(!fin.eof() && char_count < n) {
     fin.get(tmp);
     cout << tmp; char_count++;
   }
 }
 
-void process(int argc, char **argv, int optind, bool line_print, int line_print_arg,
-             bool char_print, int char_print_arg, bool quiet_print) {
+void process(int argc, char **argv, int optind, bool line_print, lli line_print_arg,
+             bool char_print, lli char_print_arg, bool quiet_print) {
   for (int i = optind; i < argc; i++) {
     if (!quiet_print) 
       cout << "==> " << argv[i] << " <==" << endl;
@@ -62,14 +62,14 @@ int main(int argc, char **argv) {
   // Indicators
   bool line_print = false, char_print = false, quiet_print = false,
        verbose_print = true;
-  int line_print_arg = 0, char_print_arg = 0;
+  lli line_print_arg = 0, char_print_arg = 0;
   while((c = getopt_long(argc, argv, "c:n:qvhk", long_options, &option_index)) != -1) {
     switch(c) {
       case 'n': line_print = true;
-                line_print_arg = stoi(optarg);
+                line_print_arg = mem_parse(optarg);
                 break;
       case 'c': char_print = true;
-                char_print_arg = stoi(optarg);
+                char_print_arg = mem_parse(optarg);
                 break;
       case 'q': quiet_print = true;
                 break;
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     }
   }
   if (!line_print && !char_print) {
-    process(argc, argv, optind, line_print, 10, false, 0, quiet_print);
+    process(argc, argv, optind, true, 10, false, 0, quiet_print);
   }
   else {
     process(argc, argv, optind, line_print, line_print_arg,

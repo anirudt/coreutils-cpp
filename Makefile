@@ -1,5 +1,5 @@
 
-# Compiler user
+# Compiler used
 CC=g++ -Wall --std=c++11
 
 SOURCE_DIR=utils
