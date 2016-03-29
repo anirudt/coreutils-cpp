@@ -74,6 +74,10 @@ int main(int argc, char **argv) {
       case 'q': quiet_print = true;
                 break;
       case 'v': break;
+      case 'k': cout << "head: The version is 1.0.1" << endl;
+                break;
+      case 'h': cout << "Please see the man page for help" << endl;
+                cout << "Flags supported: -c, -n, -q, -v, -k" << endl;
       case '?': break;
       case -1:  break;
     }
