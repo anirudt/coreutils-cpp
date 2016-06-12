@@ -9,8 +9,20 @@
 
 using namespace std;
 
-int copy_file() {
+int copy_file(char **argv, int optind) {
   int ret = 0;
+  char *src, *dst;
+  src = argv[optind]; dst = argv[optind+1];
+  FILE *src_fp, *dst_fp;
+  src_fp = fopen(src, "r");
+  dst_fp = fopen(dst, "w");
+  char buff[1024];
+  do {
+    if (fgets(buff, 1024, src_fp) != NULL) {
+      fputs(buff, dst_fp);
+    }
+    else break;
+  } while(1);
 
   return ret;
 }
@@ -38,10 +50,7 @@ int main(int argc, char **argv, char **envp) {
 
       case 'h': cout << "Use 'man cp' to know how to use this tool" << endl;
                 cout << "All flags of the original tool are supported" << endl;
-                break;
-
-      case '0': byte_zero = true;
-                break;
+                break; 
 
       case '?':
                 break;
@@ -49,7 +58,7 @@ int main(int argc, char **argv, char **envp) {
     }
   }
   int ret;
-  if ((ret = copy_file()) == 1) {
+  if ((ret = copy_file(argv, optind)) == 1) {
     
   }
   else {

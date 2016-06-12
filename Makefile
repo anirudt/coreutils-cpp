@@ -22,7 +22,7 @@ head:
 	$(CC) $(SOURCE_DIR)/head.cpp $(SOURCE_DIR)/utilities.cpp -o $(BUILD_DIR)/head
 
 cp:
-	$(CC) $(SOURCE_DIR)/cp.cpp $(SOURCE_DIR)/cp.cpp -o $(BUILD_DIR)/cp
+	$(CC) $(SOURCE_DIR)/cp.cpp  -o $(BUILD_DIR)/cp
 
 
 clean:
