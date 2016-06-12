@@ -6,7 +6,8 @@ Implementation of coreutils in C++.
 * ```printenv```
 * ```echo```
 * ```wc``` 
-* ```head``` [In progress]
+* ```head``` 
+* ```cp``` [In progress]
 
 ## Build Instructions:
 * Clone the repository.

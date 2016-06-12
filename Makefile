@@ -24,6 +24,9 @@ head:
 cp:
 	$(CC) $(SOURCE_DIR)/cp.cpp  -o $(BUILD_DIR)/cp
 
+tail:
+	$(CC) $(SOURCE_DIR)/tail.cpp $(SOURCE_DIR)/utilities.cpp -o $(BUILD_DIR)/tail
+
 
 clean:
 	rm -rf $(BUILD_DIR)/*

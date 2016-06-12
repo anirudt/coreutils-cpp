@@ -29,9 +29,12 @@ int copy_file(char **argv, int optind) {
 
 int main(int argc, char **argv, char **envp) {
 
+  bool recursive = false;
+
   const struct option long_options[] = {
     {"version", no_argument, 0, 'v'},
     {"help",    no_argument, 0, 'h'},
+    {"recursive", no_argument, 0, 'r'},
     {"null",    no_argument, 0, '0'},
     {0, 0, 0, 0}
   };
@@ -39,7 +42,7 @@ int main(int argc, char **argv, char **envp) {
   int option_index = 0;
   int c;
 
-  while((c = getopt_long(argc, argv, "vh0", long_options, &option_index))!=-1) {
+  while((c = getopt_long(argc, argv, "vhr0", long_options, &option_index))!=-1) {
 
     /* Preventing error messages */
     opterr = 0;
@@ -51,6 +54,9 @@ int main(int argc, char **argv, char **envp) {
       case 'h': cout << "Use 'man cp' to know how to use this tool" << endl;
                 cout << "All flags of the original tool are supported" << endl;
                 break; 
+
+      case 'r': recursive = true;
+                break;
 
       case '?':
                 break;
